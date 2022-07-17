@@ -10,3 +10,5 @@ describe("rockets spec", () => {
     cy.contains("Starship")
   })
 })
+
+export {}

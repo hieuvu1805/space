@@ -8,3 +8,5 @@ describe("page spec", () => {
     cy.url().should("include", "/404page")
   })
 })
+
+export {}
