@@ -1,20 +1,44 @@
-import type { NextPage } from "next"
-// import Image from "next/image"
+import type { GetServerSideProps, NextPage } from "next"
 
 import Layout from "@components/common/Layout"
-const Home: NextPage = ({ data }) => {
-  console.log(data)
+import Rocket from "@components/molecules/Rocket"
+import { IRocket } from "@interfaces"
+
+type Props = {
+  rockets: IRocket[]
+}
+
+const Home: NextPage<Props> = ({ rockets }) => {
+  if (!rockets?.length) {
+    return null
+  }
 
   return (
-    <Layout title="Home">
-      <h1>Rockets</h1>
+    <Layout title="Rockets">
+      <h1 className="hidden">Rockets</h1>
+      <div className="pt-1 bg-[url('/images/background.jpeg')]">
+        {rockets.map((rocket) => (
+          <Rocket key={rocket.id} {...rocket} />
+        ))}
+      </div>
     </Layout>
   )
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(process.env.API_URL + "/films")
-  return { props: { data: await res.json() } }
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=36000"
+  )
+
+  const fetchRocket = await fetch(process.env.API_URL + "/rockets")
+  const rockets = await fetchRocket.json()
+
+  return {
+    props: {
+      rockets,
+    },
+  }
 }
 
 export default Home

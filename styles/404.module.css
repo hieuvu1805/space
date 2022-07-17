@@ -108,7 +108,7 @@
   background-repeat: repeat-x;
   background-size: cover;
   background-position: left top;
-  height: 100vh;
+  height: calc(100vh - 24px);
   width: 100vw;
   overflow: hidden;
   position: relative;
@@ -116,7 +116,10 @@
 
 .body {
   padding: 17% 5% 10% 5%;
+  display: flex;
+  justify-content: center;
   text-align: center;
+  align-items: center;
 }
 
 .objects img {
