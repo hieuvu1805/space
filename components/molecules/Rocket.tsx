@@ -30,7 +30,7 @@ export default function Rocket({ ...rocket }: IRocket): JSX.Element {
       </div>
       <div className="flex-1 px-5 md:px-10 lg:px-5 text-white">
         <h3 className="text-xl sm:text-3xl lg:text-xl xl:text-3xl uppercase font-bold">
-          {rocket.name} {rocket.active ? "(activated)" : null}
+          {`${rocket.name}${rocket.active ? " (activated)" : ""}`}
         </h3>
         <p className="mt-2">{rocket.description}</p>
         <p className="mt-2">
